@@ -4,9 +4,17 @@ body{
     background-size:cover;
     background-attachment: fixed;
     background-position: center;
-
+    font-family:'Courier New', Courier, monospace
 }
-
+img{
+    width:30%;
+    height:20%;
+}
+#logo{
+    position:absolute;
+    left:35%;
+    top:5%;
+}
 #container{
     width:20%;
     height:60%;
@@ -20,16 +28,37 @@ body{
     top:30%;
     
 }
-
+#volunteer{
+    position:absolute;
+    top:48%;
+    left:13%;
+}
+#school{
+    position:absolute;
+    top:48%;
+    right:17%;
+}
 #ngo_home{
     position:absolute;
     top:55%;
-    left:20%;
+    left:10%;
+    height: 100px;
+    width: 90px;
+    background-image: url('/static-templates/images/image-removebg-preview (2).png');
+    background-size: cover;
+    background-color:transparent;
+    
+
 }
 #school_home{
     position:absolute;
     top:55%;
-    right:20%;
+    background-image: url('/static-templates/images/4394368-200.png');
+    background-size: cover;
+    right:10%;
+    height: 100px;
+    width: 90px;
+    background-color: transparent;
 }
 
 button{ 
@@ -41,7 +70,6 @@ button:hover{
 }
 
    
-
 
 
 
