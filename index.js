@@ -3,7 +3,7 @@ const express = require('express');
 const session = require('express-session')
 const app = express();
 
-const db_insert = require('./database/insert_records.js')
+// const db_insert = require('./database/insert_records.js')
 const db_startup = require('./database/startup.js')
 
 // database init
