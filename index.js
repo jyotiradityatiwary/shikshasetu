@@ -2,13 +2,14 @@ const path = require('path');
 const express = require('express');
 const session = require('express-session')
 const app = express();
+const ejs = require('ejs')
 
 const db_query = require('./database/query.js')
 const db_startup = require('./database/startup.js')
 
-// // database init
-// db_startup.main();
-// const con = db_startup.con;
+// database init
+db_startup.main();
+const con = db_startup.con;
 
 let sessionSecret = null
 if (process.env.SESSION_SECRET == "") {
@@ -103,6 +104,22 @@ app.post('/volunteer/login', (req, res) => {
     // }
     const { email, password } = req.body
 
+    // async (email, password) => {
+    //     console.log("Hello")
+    // }
+    // const correctPassword = await db_query.getPassword();
+    db_query.getPassword(con, "volunteerngos", email)
+        .then( value => {
+            console.log("we got", password, "when we want", value)
+            const correctPassword = value;
+            if (password === correctPassword) {
+                req.session.loggedIn = true;
+                res.redirect('/volunteer')
+            } else {
+                const invalidLogin = true
+                res.render('volunteer/login', { invalidLogin } )
+            }
+        } )
 
 })
 

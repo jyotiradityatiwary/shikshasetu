@@ -1,10 +1,19 @@
 let mysql = require("mysql");
 
-async function getPassword(con, tableName, name) {
-  let query = `SELECT password FROM ${tableName} WHERE name = '${name}'`;
+async function getPassword(con, tableName, email) {
+  let query = `SELECT password FROM ${tableName} WHERE email = '${email}'`;
   return new Promise(function (resolve, reject) {
     con.query(query, function (err, results) {
       if (err) throw err;
+      console.log(results.length, results.length == 0)
+      if (results.length == 0) {
+        // reject("username-not-found")
+        console.log('email', email, 'not found when looking up password')
+        console.dir(results)
+        resolve("")
+        return
+        console.log('nigg after resolve')
+      } 
       resolve(results[0].password);
     });
   });
@@ -27,3 +36,6 @@ function volunteerRegister(con, name, email, password, phoneNumber) {
         console.log("Records Inserted: " + results.affectedRows);
     })
 }
+
+
+module.exports = {getPassword, volunteerRegister, schoolRegister}
