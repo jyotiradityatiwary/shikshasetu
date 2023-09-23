@@ -1,18 +1,6 @@
 let mysql = require('mysql');
 
-let con = mysql.createConnection({
-    host: 'localhost',
-    user: 'root',
-    password: 'tiger',
-    database: 'ShikshaSetu'
-});
-
-con.connect(function (err) {
-    if (err) throw err;
-    console.log("CONNECTION ESTABILISHED!");
-})
-
-function schoolLogin(name, email, password, location) {
+function schoolRegister(name, email, password, location) {
     let query = `INSERT INTO Schools(name, email, password, location) VALUES ('${name}', '${email}', '${password}', '${location}')`;
 
     con.query(query, function (err, results) {
@@ -21,7 +9,7 @@ function schoolLogin(name, email, password, location) {
     })
 }
 
-function volunteerLogin(name, email, password, phoneNumber) {
+function volunteerRegister(name, email, password, phoneNumber) {
     let query = `INSERT INTO VolunteerNGOs(name, email, password, phoneNumber) VALUES ('${name}', '${email}', '${password}', ${phoneNumber})`;
 
     con.query(query, function (err, results) {
@@ -33,4 +21,4 @@ function volunteerLogin(name, email, password, phoneNumber) {
 
 // con.end();
 
-module.exports = { schoolLogin, volunteerLogin }
+module.exports = { schoolRegister, volunteerRegister }
