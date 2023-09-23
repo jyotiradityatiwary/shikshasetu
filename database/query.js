@@ -9,3 +9,21 @@ async function getPassword(con, tableName, name) {
     });
   });
 }
+
+function schoolRegister(con, name, email, password, location) {
+    let query = `INSERT INTO Schools(name, email, password, location) VALUES ('${name}', '${email}', '${password}', '${location}')`;
+
+    con.query(query, function (err, results) {
+        if (err) throw err;
+        console.log("Records Inserted: " + results.affectedRows);
+    })
+}
+
+function volunteerRegister(con, name, email, password, phoneNumber) {
+    let query = `INSERT INTO VolunteerNGOs(name, email, password, phoneNumber) VALUES ('${name}', '${email}', '${password}', ${phoneNumber})`;
+
+    con.query(query, function (err, results) {
+        if (err) throw err;
+        console.log("Records Inserted: " + results.affectedRows);
+    })
+}
