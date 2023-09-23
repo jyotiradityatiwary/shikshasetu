@@ -6,9 +6,9 @@ const app = express();
 const db_query = require('./database/query.js')
 const db_startup = require('./database/startup.js')
 
-// database init
-db_startup.main();
-const con = db_startup.con;
+// // database init
+// db_startup.main();
+// const con = db_startup.con;
 
 let sessionSecret = null
 if (process.env.SESSION_SECRET == "") {
@@ -68,11 +68,12 @@ app.set('view engine', 'ejs')
 // })
 
 
-
+// Home Page
 app.get('/', (req, res) => {
     res.render('index')
 })
 
+// Volunteer
 app.get('/volunteer', (req, res) => {
     if (req.session.loggedIn && req.session.loggedIn == true) {
         res.render('/volunteer')
@@ -81,16 +82,15 @@ app.get('/volunteer', (req, res) => {
     }
 })
 
+
+
+// Volunteer Login logic
+
 app.get('/volunteer/login', (req, res) => {
     res.render('volunteer/login')
 })
 
-app.get('/school', (req, res) => {
-    res.render('school')
-})
-
-// Login logic
-app.post('/volunteer/login', (req, res) => { 
+app.post('/volunteer/login', (req, res) => {
 
     if (req.session.loggedIn && req.session.loggedIn == true) {
         res.render('/volunteer')
@@ -102,13 +102,18 @@ app.post('/volunteer/login', (req, res) => {
     //     app.show("Invalid Request. Required fields not provided")
     // }
     const { email, password } = req.body
-    
+
 
 })
 
 
-// volunteer/register logic
-app.post('/volunteer/register', (req, res) => { 
+// Volunteer Register logic
+
+app.get('/volunteer/register', (req, res) => {
+    res.render('volunteer/register')
+})
+
+app.post('/volunteer/register', (req, res) => {
 
     if (req.session.loggedIn && req.session.loggedIn == true) {
         res.render('/volunteer')
@@ -124,6 +129,59 @@ app.post('/volunteer/register', (req, res) => {
 
 })
 
+// School
+
+app.get('/school', (req, res) => {
+    if (req.session.loggedIn && req.session.loggedIn == true) {
+        res.render('/school')
+    } else {
+        res.redirect('/school/login')
+    }
+})
+
+// School Login Logic
+
+app.get('/school/login', (req, res) => {
+    res.render('school/login')
+})
+
+app.post('/school/login', (req, res) => {
+
+    if (req.session.loggedIn && req.session.loggedIn == true) {
+        res.render('/school')
+    }
+
+    console.dir(req.body)
+    // TODO: add error checking
+    // if (!(req.body.email && req.body.name && req.body.phone && req.body.password)) {
+    //     app.show("Invalid Request. Required fields not provided")
+    // }
+    const { email, password } = req.body
+
+
+})
+
+// School Register logic
+
+app.get('/school/register', (req, res) => {
+    res.render('school/register')
+})
+
+app.post('/school/register', (req, res) => {
+
+    if (req.session.loggedIn && req.session.loggedIn == true) {
+        res.render('/school')
+    }
+
+    console.dir(req.body)
+    // TODO: add error checking
+    // if (!(req.body.email && req.body.name && req.body.phone && req.body.password)) {
+    //     app.show("Invalid Request. Required fields not provided")
+    // }
+    const { email, name, phone, password } = req.body
+    db_query.schoolRegister(con, name, email, password, phone);
+
+})
 
 app.listen(8000, (err) => {
     if (err) throw err
