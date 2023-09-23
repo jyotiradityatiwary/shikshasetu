@@ -3,11 +3,12 @@ const express = require('express');
 const session = require('express-session')
 const app = express();
 
-// const db_insert = require('./database/insert_records.js')
+const db_query = require('./database/query.js')
 const db_startup = require('./database/startup.js')
 
 // database init
 db_startup.main();
+const con = db_startup.con;
 
 let sessionSecret = null
 if (process.env.SESSION_SECRET == "") {
@@ -89,18 +90,39 @@ app.get('/school', (req, res) => {
 })
 
 // Login logic
-app.post('/volunteer/login', (req, res) => {
-    console.dir(req.body)
-    if (!(req.body.email && req.body.name && req.body.phone && req.body.password)) {
-        app.show("Invalid Request. Required fields not provided")
+app.post('/volunteer/login', (req, res) => { 
+
+    if (req.session.loggedIn && req.session.loggedIn == true) {
+        res.render('/volunteer')
     }
-    const { email, name, phone, password } = req.body
+
+    console.dir(req.body)
+    // TODO: add error checking
+    // if (!(req.body.email && req.body.name && req.body.phone && req.body.password)) {
+    //     app.show("Invalid Request. Required fields not provided")
+    // }
+    const { email, password } = req.body
+    
 
 })
 
 
+// volunteer/register logic
+app.post('/volunteer/register', (req, res) => { 
 
+    if (req.session.loggedIn && req.session.loggedIn == true) {
+        res.render('/volunteer')
+    }
 
+    console.dir(req.body)
+    // TODO: add error checking
+    // if (!(req.body.email && req.body.name && req.body.phone && req.body.password)) {
+    //     app.show("Invalid Request. Required fields not provided")
+    // }
+    const { email, name, phone, password } = req.body
+    db_query.volunteerRegister(con, name, email, password, phone);
+
+})
 
 
 app.listen(8000, (err) => {
