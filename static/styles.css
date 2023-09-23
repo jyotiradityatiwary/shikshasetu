@@ -3,7 +3,7 @@
 body {
     font-family: Arial, sans-serif;
     background-repeat: no-repeat;
-    background-size: fill;
+    background-size: 100%100%;
     margin: 0;
     display: flex;
     justify-content: center;
@@ -17,7 +17,6 @@ h1{
 
 .login{
     background-color: #fff;
-    background-image: ;
     border-radius: 8px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
     padding: 20px;
