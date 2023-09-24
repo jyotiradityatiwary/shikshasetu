@@ -48,7 +48,7 @@ body{
     left:10%;
     height: 130px;
     width: 130px;
-    background-image: url('/images/image-removebg-preview\ \(2\).png');
+    background-image: url('/images/ngo-icon.png');
     background-size: cover;
     background-color:rgba(256,256,256,0.1);
     /* border:1px solid black; */
@@ -57,7 +57,7 @@ body{
 #school_home{
     position:absolute;
     top:55%;
-    background-image: url('/images/4394368-200.png');
+    background-image: url('/images/school-icon.png');
     background-size: cover;
     right:10%;
     height: 130px;

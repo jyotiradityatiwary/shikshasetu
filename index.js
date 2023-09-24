@@ -73,7 +73,7 @@ app.set('view engine', 'ejs')
 
 // Home Page
 app.get('/', (req, res) => {
-    res.render('index')
+    res.render('landingPage')
 })
 
 // Logout
@@ -244,7 +244,8 @@ app.get('/school', (req, res) => {
     }
 })
 
-// School Login Logic
+
+// School Login logic
 
 app.get('/school/login', (req, res) => {
     if (req.session.loggedIn && req.session.loggedIn == true) {
@@ -268,12 +269,36 @@ app.post('/school/login', (req, res) => {
     // }
     const { email, password } = req.body
 
+    // async (email, password) => {
+    //     console.log("Hello")
+    // }
+    // const correctPassword = await db_query.getPassword();
+    db_query.getPassword(con, "schools", email)
+        .then( value => {
+            console.log("we got", password, "when we want", value)
+            const correctPassword = value;
+            if (password === correctPassword) {
+                req.session.loggedIn = true;
+                req.session.email = email;
+                res.redirect('/school')
+            } else {
+                const invalidLogin = true
+                res.render('school/login', { invalidLogin } )
+            }
+        } )
 
 })
+
 
 // School Register logic
 
 app.get('/school/register', (req, res) => {
+
+    if (req.session.loggedIn && req.session.loggedIn == true) {
+        res.redirect('/school')
+        return
+    }
+
     res.render('school/register')
 })
 
@@ -288,10 +313,15 @@ app.post('/school/register', (req, res) => {
     // if (!(req.body.email && req.body.name && req.body.phone && req.body.password)) {
     //     app.show("Invalid Request. Required fields not provided")
     // }
-    const { email, name, phone, password } = req.body
-    db_query.schoolRegister(con, name, email, password, phone);
+    const { email, name, password, city } = req.body
+    db_query.schoolRegister(con, name, email, password, city);
+    res.redirect('/school/login')
 
 })
+
+
+
+// Server Start Listening
 
 app.listen(8000, (err) => {
     if (err) throw err
