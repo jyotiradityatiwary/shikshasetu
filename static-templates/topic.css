@@ -51,3 +51,15 @@ body {
 .add:hover{
     background-color: rgba(255,0,0, 0.8);
 }
+.back{
+    display: inline-block;
+    background-color: rgba(46, 224, 90, 0.45);
+    border-radius: 5px;
+    padding: 5px;
+    text-align: center;
+    color:white
+    /* backdrop-filter: blur(5px); */
+}
+.back:hover{
+    background-color: rgba(46,224,90, 0.8);
+}
