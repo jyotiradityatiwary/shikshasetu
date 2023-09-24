@@ -14,7 +14,7 @@ con.connect(function(err){
 
 
 function displayRecords(tableName){
-    let query = `SELECT * from ${tableName} where`;
+    let query = `SELECT * from ${tableName}`;
 
     con.query(query, function(err, results, fields){
         if (err) throw err;

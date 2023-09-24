@@ -50,6 +50,47 @@ function queryVolunteer(con, email) {
   });
 }
 
+function querySchoolLocation(con, email) {
+  let query = `SELECT location from Schools WHERE email = '${email}'`;
+  return new Promise(function (resolve, reject) {
+    con.query(query, function (err, results) {
+      if (err) throw err;
+      if (results.length == 0) {
+        resolve("");
+        return;
+      }
+      resolve(results[0].location);
+    });
+  });
+}
+
+// function querySchoolName(con, email) {
+//   let query = `SELECT name from Schools WHERE email = '${email}'`;
+//   return new Promise(function (resolve, reject) {
+//     con.query(query, function (err, results) {
+//       if (err) throw err;
+//       if (results.length == 0) {
+//         resolve("");
+//         return;
+//       }
+//       resolve(results[0].name);
+//     });
+//   });
+// }
+
+
+function getAllVolunteers(con) {
+  let query = `SELECT * from VolunteerNGOs`;
+  return new Promise(function (resolve, reject) {
+    con.query(query, function (err, results) {
+      if (err) throw err;
+      resolve(results);
+    });
+  });
+}
+
+
+
 function updateTopics(con, email, topicStr) {
   // console.log(topicArr.join(";"));
   let query = `UPDATE VolunteerNGOs
@@ -67,4 +108,6 @@ module.exports = {
   schoolRegister,
   queryVolunteer,
   updateTopics,
+  getAllVolunteers,
+  querySchoolLocation
 };
