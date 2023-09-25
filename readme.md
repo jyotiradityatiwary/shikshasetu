@@ -32,6 +32,7 @@ npm install
 ```
 
 You will also need to set up a MySQL databse with the following specification :
+
     host: 'localhost',
     user: 'root',
     password: 'tiger',
