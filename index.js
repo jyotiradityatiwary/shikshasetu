@@ -25,7 +25,7 @@ if (process.env.SESSION_SECRET == "") {
 app.use(
   session({
     // It holds the secret key for session
-    secret: "asdfghjkl",
+    secret: sessionSecret,
 
     // Forces the session to be saved
     // back to the session store
@@ -46,28 +46,6 @@ app.use(express.static("static"));
 // Views folder and EJS setup:
 app.set("views", path.join(__dirname, "views"));
 app.set("view engine", "ejs");
-
-// // Session Handling
-//
-// app.get("/", function (req, res) {
-
-//     // req.session.key = value
-//     req.session.name = 'GeeksforGeeks'
-//     return res.send("Session Set")
-// })
-
-// app.get("/session", function (req, res) {
-
-//     var name = req.session.name
-//     return res.send(name)
-
-//     /*  To destroy session you can use
-//         this function
-//      req.session.destroy(function(error){
-//         console.log("Session Destroyed")
-//     })
-//     */
-// })
 
 // Home Page
 app.get("/", (req, res) => {
